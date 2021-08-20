@@ -43,7 +43,7 @@ It is designed for mono-lingual retrieval, specifically to evaluate ranking with
 | [Japanese](https://vault.cs.uwaterloo.ca/s/mYj9g7pJZqGbZXM/download)
 | [Korean](https://vault.cs.uwaterloo.ca/s/zKAFt5q8wLjokWq/download)
 | [Russian](https://vault.cs.uwaterloo.ca/s/TBMEn2coT9Xoyk8/download)
-| [Kiswahili](https://vault.cs.uwaterloo.ca/s/rpX6TbqrE73yoLp/download)
+| [Swahili](https://vault.cs.uwaterloo.ca/s/rpX6TbqrE73yoLp/download)
 | [Telugu](https://vault.cs.uwaterloo.ca/s/eWN7ZYpfknRHZEM/download)
 | [Thai](https://vault.cs.uwaterloo.ca/s/HnF36dN86SdZKx6/download)
 
@@ -57,13 +57,13 @@ It is designed for mono-lingual retrieval, specifically to evaluate ranking with
 | [Japanese]() 
 | [Korean]()
 | [Russian]() 
-| [Kiswahili]()
+| [Swahili]()
 | [Telugu]()
 | [Thai]()
 
 #### 4. Checkpoints
-- [castorini/mdpr-question-nq]() 
-- [castorini/mdpr-context-nq]()
+- [castorini/mdpr-question-nq](https://huggingface.co/castorini/mdpr-question-nq)
+- [castorini/mdpr-passage-nq](https://huggingface.co/castorini/mdpr-passage-nq)
 
 
 ## Baselines and Evaluation
