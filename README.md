@@ -67,9 +67,105 @@ It is designed for mono-lingual retrieval, specifically to evaluate ranking with
 
 
 ## Baselines and Evaluation
-#### 1. BM25
-#### 2. mDPR
+Please follow this [guidance](https://github.com/castorini/pyserini/#development-installation) to setup a dev installation for Pyserini.
 
+#### 1. BM25
+Define variables based on language
+```bash
+LANG=arabic
+LANGCODE=ar
+TOPICS=mrtydi-v1.0-${LANG}/topic.test.tsv
+QRELS=mrtydi-v1.0-${LANG}/qrels.test.tsv
+INDEX=lucene.mrtydi-v1.0-${LANG}
+RUN=run.mrtydi.${LANG}.test.bm25.trec
+KVALUE=0.9
+BVALUE=0.4
+```
+
+Search
+```bash
+python -m pyserini.search --topics ${TOPICS} \
+                            --index ${INDEX} \
+                            --output ${RUN} \
+                            --k1 ${KVALUE} \
+                            --b ${BVALUE} \
+                            --threads 12 \
+                            --batch 12 \
+                            --language ${LANGCODE} \
+                            --hits 100 
+```
+
+Evaluate
+```bash
+python -m pyserini.eval.trec_eval -c -mrecip_rank -mrecall.100 ${QRELS} ${RUN} 
+```
+
+#### 2. mDPR
+Define variables based on language
+```bash
+LANG=arabic
+LANGCODE=ar
+TOPICS=mrtydi-v1.0-${LANG}/topic.test.tsv
+QRELS=mrtydi-v1.0-${LANG}/qrels.test.tsv
+DINDEX=faiss-flat.mdpr-passage-nq.mrtydi-v1.0-${LANG}
+ENCODER=castorini/mdpr-question-encoder
+RUN=run.mrtydi.${LANG}.test.mdpr.trec
+```
+
+Search
+```bash
+python -m pyserini.dsearch --topics ${TOPICS} \
+                           --index ${DINDEX} \
+                           --encoder ${ENCODER} \
+                           --batch-size 12 \
+                           --threads 12 \
+                           --output ${RUN} \
+                           --hits 100
+```
+
+Evaluate
+```bash
+python -m pyserini.eval.trec_eval -c -mrecip_rank -mrecall.100 ${QRELS} ${RUN} 
+```
+
+#### 3. BM25+mDPR hybrid
+Define variables based on language
+```bash
+LANG=arabic
+LANGCODE=ar
+TOPICS=mrtydi-v1.0-${LANG}/topic.test.tsv
+QRELS=mrtydi-v1.0-${LANG}/qrels.test.tsv
+SINDEX=lucene.mrtydi-v1.0-${LANG}
+DINDEX=faiss-flat.mdpr-passage-nq.mrtydi-v1.0-${LANG}
+ENCODER=castorini/mdpr-question-encoder
+RUN=run.mrtydi.${LANG}.test.mdpr.trec
+KVALUE=0.6
+BVALUE=0.4
+ALPHA=0.84
+```
+
+Search
+```bash
+python -m pyserini.hsearch   dense  --index ${DINDEX} \
+                                    --encoder ${ENCODER} \
+                             sparse --index ${SINDEX} \
+                                    --language ${LANGCODE} \
+                                    --k1 ${KVALUE} \
+                                    --b ${BVALUE} \
+                             fusion --alpha ${ALPHA} \
+                                    --hits 1000 \
+                                    --normalization \
+                                    --weight-on-dense \
+                             run    --topics ${TOPICS} \
+                                    --batch-size 36 --threads 36 \
+                                    --output ${RUN} \
+                                    --hits 100
+```
+
+Evaluate
+```bash
+python -m pyserini.eval.trec_eval -c -mrecip_rank -mrecall.100 ${QRELS} ${RUN} 
+```
 
 ## Citation
 If you find our paper useful or use the dataset in your work, please cite our paper and the TyDi paper:
