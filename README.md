@@ -49,17 +49,17 @@ It is designed for mono-lingual retrieval, specifically to evaluate ranking with
 
 #### 3. Pre-build dense index (for mDPR)
 
-&nbsp;&nbsp;&nbsp;&nbsp; [Arabic]()
-| [Bengali]() 
-| [English]() 
-| [Finnish]()
-| [Indonesian]()
-| [Japanese]() 
-| [Korean]()
-| [Russian]() 
-| [Swahili]()
-| [Telugu]()
-| [Thai]()
+&nbsp;&nbsp;&nbsp;&nbsp; [Arabic](https://vault.cs.uwaterloo.ca/s/JptH9xNcWsEJnto/download)
+| [Bengali](https://vault.cs.uwaterloo.ca/s/Q2e8iRc6W2598RA/download) 
+| [English](https://vault.cs.uwaterloo.ca/s/YsJeS6EHA4XndHP/download)
+| [Finnish](https://vault.cs.uwaterloo.ca/s/EkywkiRTkPHEcHF/download)
+| [Indonesian](https://vault.cs.uwaterloo.ca/s/3RJBaDKjmFtEiXQ/download)
+| [Japanese](https://vault.cs.uwaterloo.ca/s/iMdqFEatGGKWqJY/download)
+| [Korean](https://vault.cs.uwaterloo.ca/s/DWjLygpryrrDmAg/download)
+| [Russian](https://vault.cs.uwaterloo.ca/s/saJ9fwdE4Fxy6jD/download) 
+| [Swahili](https://vault.cs.uwaterloo.ca/s/P4zpSg3CHp4ckmZ/download)
+| [Telugu](https://vault.cs.uwaterloo.ca/s/PrpzZTxgRwyP3EG/download)
+| [Thai](https://vault.cs.uwaterloo.ca/s/wT8GSZqY6T8JRqC/download)
 
 #### 4. Checkpoints
 - [castorini/mdpr-question-nq](https://huggingface.co/castorini/mdpr-question-nq)
