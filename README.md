@@ -16,6 +16,7 @@
 ## Introduction
 Mr. TyDi is a multi-lingual benchmark dataset built on [TyDi](https://arxiv.org/abs/2003.05002), covering eleven typologically diverse languages.
 It is designed for mono-lingual retrieval, specifically to evaluate ranking with learned dense representations.
+Mr. TyDi is licensed under the Apache License 2.0. 
 
 ## Download 
 
