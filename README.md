@@ -30,10 +30,10 @@ Mr. TyDi is licensed under the Apache License 2.0.
 - [castorini/mr-tydi](https://huggingface.co/datasets/castorini/mr-tydi)
 - [castorini/mrtydi-corpus](https://huggingface.co/datasets/castorini/mr-tydi-corpus)
 
-#### 2. Pre-build sparse index (for BM25)
+#### 2. Pre-built sparse index (for BM25)
 &nbsp;&nbsp;&nbsp;&nbsp; [Ar](https://vault.cs.uwaterloo.ca/s/7oDFnq8FmTazf2a/download) \| [Bn](https://vault.cs.uwaterloo.ca/s/HaPaz2wFbRMP2LK/download) \| [En](https://vault.cs.uwaterloo.ca/s/w4ccMwH5BLnXQ3j/download) \| [Fi](https://vault.cs.uwaterloo.ca/s/Pgd3mqjy77a6FR8/download) \| [Id](https://vault.cs.uwaterloo.ca/s/tF8NE7pWZ2xGix7/download) \| [Ja](https://vault.cs.uwaterloo.ca/s/ema8i83zqJr7n48/download) \| [Ko](https://vault.cs.uwaterloo.ca/s/igmEHCTjTwNi3de/download) \| [Ru](https://vault.cs.uwaterloo.ca/s/Pbi9xrD7jSYaxnX/download) \| [Sw](https://vault.cs.uwaterloo.ca/s/SWqajDQgq8wppf6/download) \| [Te](https://vault.cs.uwaterloo.ca/s/DAB6ba5ZF98awH6/download) \| [Th](https://vault.cs.uwaterloo.ca/s/2Ady6AwBwNbYLpg/download)
 
-#### 3. Pre-build dense index (for mDPR)
+#### 3. Pre-built dense index (for mDPR)
 &nbsp;&nbsp;&nbsp;&nbsp; [Ar](https://vault.cs.uwaterloo.ca/s/Jgj3rYjbyRrmJs8/download) \| [Bn](https://vault.cs.uwaterloo.ca/s/4PpkzXAQtXFFJHR/download) \| [En](https://vault.cs.uwaterloo.ca/s/A7pjbwYeoT4Krnj/download) \| [Fi](https://vault.cs.uwaterloo.ca/s/erNYkrYzRZxpecz/download) \| [Id](https://vault.cs.uwaterloo.ca/s/BpR3MzT7KJ6edx7/download) \| [Ja](https://vault.cs.uwaterloo.ca/s/k7bptHT8GwMJpnF/download) \| [Ko](https://vault.cs.uwaterloo.ca/s/TigfYMde94YWAoE/download) \| [Ru](https://vault.cs.uwaterloo.ca/s/eN7demnmnspqxjk/download) \| [Sw](https://vault.cs.uwaterloo.ca/s/JgiX8PRftnqcPwy/download) \| [Te](https://vault.cs.uwaterloo.ca/s/dkm6RGdgRbnwiX2/download) \| [Th](https://vault.cs.uwaterloo.ca/s/fFrRYefd3nWFR3J/download)
 
 #### 4. Checkpoints
