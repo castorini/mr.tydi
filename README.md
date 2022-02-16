@@ -51,104 +51,68 @@ The dataset (v1.1) is also available on HuggingFace Dataset:
 
 
 ## Baselines and Evaluation
+The one-command index and reproduce would require the recent dev version of Pyserini.
 Please follow this [guidance](https://github.com/castorini/pyserini/#development-installation) to setup a dev installation for Pyserini.
+
+This page only covers the scripts to reproduce searching.
+The indexes are all handled within Pyserini. 
+That is, you won't need to manually download the above indexes or model to run the following scripts.
+For the scripts to reproduce the sparse and dense indexes,
+please refer to the Pyserini documentations:
+
 
 #### 1. BM25
 Define variables based on language
 ```bash
-LANG=arabic
-LANGCODE=ar
-TOPICS=mrtydi-v1.0-${LANG}/topic.test.tsv
-QRELS=mrtydi-v1.0-${LANG}/qrels.test.tsv
-INDEX=lucene.mrtydi-v1.0-${LANG}
-RUN=run.mrtydi.${LANG}.test.bm25.trec
-KVALUE=0.9
-BVALUE=0.4
-```
+lang=arabic     # one of {'arabic', 'bengali', 'english', 'finnish', 'indonesian', 'japanese', 'korean', 'russian', 'swahili', 'telugu', 'thai'}
+lang_abbr=ar    # one of {'ar', 'bn', 'en', 'fi', 'id', 'ja', 'ko', 'ru', 'sw', 'te', 'th'}
+set_name=test   # one of {'train', 'dev', 'test'}
+runfile=runs/run.bm25.mrtydi-v1.1-${lang}.${set_name}.txt
 
-Search
-```bash
-python -m pyserini.search --topics ${TOPICS} \
-                            --index ${INDEX} \
-                            --output ${RUN} \
-                            --k1 ${KVALUE} \
-                            --b ${BVALUE} \
-                            --threads 12 \
-                            --batch 12 \
-                            --language ${LANGCODE} \
-                            --hits 100 
-```
-
-Evaluate
-```bash
-python -m pyserini.eval.trec_eval -c -mrecip_rank -mrecall.100 ${QRELS} ${RUN} 
+python -m pyserini.search --bm25 \
+    --language ${lang_abbr} \
+    --topics mrtydi-v1.1-${lang}-${set_name} \
+    --index mrtydi-v1.1-${lang} \
+    --output ${runfile}
 ```
 
 #### 2. mDPR
-Define variables based on language
 ```bash
-LANG=arabic
-LANGCODE=ar
-TOPICS=mrtydi-v1.0-${LANG}/topic.test.tsv
-QRELS=mrtydi-v1.0-${LANG}/qrels.test.tsv
-DINDEX=faiss-flat.mdpr-passage-nq.mrtydi-v1.0-${LANG}
-ENCODER=castorini/mdpr-question-encoder
-RUN=run.mrtydi.${LANG}.test.mdpr.trec
-```
+lang=arabic     # one of {'arabic', 'bengali', 'english', 'finnish', 'indonesian', 'japanese', 'korean', 'russian', 'swahili', 'telugu', 'thai'}
+lang_abbr=ar    # one of {'ar', 'bn', 'en', 'fi', 'id', 'ja', 'ko', 'ru', 'sw', 'te', 'th'}
+set_name=test   # one of {'train', 'dev', 'test'}
+runfile=runs/run.mdpr.mrtydi-v1.1-$lang.${set_name}.txt
 
-Search
-```bash
-python -m pyserini.dsearch --topics ${TOPICS} \
-                           --index ${DINDEX} \
-                           --encoder ${ENCODER} \
-                           --batch-size 12 \
-                           --threads 12 \
-                           --output ${RUN} \
-                           --hits 100
-```
-
-Evaluate
-```bash
-python -m pyserini.eval.trec_eval -c -mrecip_rank -mrecall.100 ${QRELS} ${RUN} 
+python -m pyserini.dsearch \
+    --topics mrtydi-v1.1-${lang}-${set_name} \
+    --index mrtydi-v1.1-${lang}-mdpr-nq \
+    --encoder castorini/mdpr-question-nq \
+    --batch-size 36 \
+    --threads 12 \
+    --output 
 ```
 
 #### 3. BM25+mDPR hybrid
 Define variables based on language
 ```bash
-LANG=arabic
-LANGCODE=ar
-TOPICS=mrtydi-v1.0-${LANG}/topic.test.tsv
-QRELS=mrtydi-v1.0-${LANG}/qrels.test.tsv
-SINDEX=lucene.mrtydi-v1.0-${LANG}
-DINDEX=faiss-flat.mdpr-passage-nq.mrtydi-v1.0-${LANG}
-ENCODER=castorini/mdpr-question-encoder
-RUN=run.mrtydi.${LANG}.test.mdpr.trec
-KVALUE=0.6
-BVALUE=0.4
-ALPHA=0.84
-```
+lang=arabic     # one of {'arabic', 'bengali', 'english', 'finnish', 'indonesian', 'japanese', 'korean', 'russian', 'swahili', 'telugu', 'thai'}
+lang_abbr=ar    # one of {'ar', 'bn', 'en', 'fi', 'id', 'ja', 'ko', 'ru', 'sw', 'te', 'th'}
+alpha=None  # will use the pre-set best alpha, need to set --lang in this case
+            # or any float between (0, 1) 
 
-Search
-```bash
-python -m pyserini.hsearch   dense  --index ${DINDEX} \
-                                    --encoder ${ENCODER} \
-                             sparse --index ${SINDEX} \
-                                    --language ${LANGCODE} \
-                                    --k1 ${KVALUE} \
-                                    --b ${BVALUE} \
-                             fusion --alpha ${ALPHA} \
-                                    --hits 1000 \
-                                    --normalization \
-                                    --weight-on-dense \
-                             run    --topics ${TOPICS} \
-                                    --batch-size 36 --threads 36 \
-                                    --output ${RUN} \
-                                    --hits 100
+python scripts/hybrid.py    --lang ${lang} \
+                            --sparse ${bm25_runfile} \
+                            --dense ${dense_runfile} \
+                            --output ${runfile} \
+                            --alpha ${alpha} \
+                            --weight-on-dense \
+                            --normalization
 ```
+where the `bm25_runfile` and `dense_runfile` are prepared from the previous two steps.
 
-Evaluate
+#### 4. Evaluate
 ```bash
-python -m pyserini.eval.trec_eval -c -mrecip_rank -mrecall.100 ${QRELS} ${RUN} 
+python -m pyserini.eval.trec_eval -c -mrecip_rank -mrecall.100 ${qrels} ${runfile} 
 ```
 
 ## Citation
