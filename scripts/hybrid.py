@@ -23,8 +23,8 @@ if __name__ == '__main__':
     parser.add_argument('--dense', required=True, help='retrieval run1')
     parser.add_argument('--sparse', required=True, help='retrieval run2')
     parser.add_argument('--output', required=True)
-    parser.add_argument('--alpha', type=float, default=None, help="The alpha weight on dense / sparse score. use the pre-defined (optimal) one if not given.")
-    parser.add_argument('--lang', type=str, default=None, help="The language of the runfiles to compute hybrid on. Need to be set if alpha is not given.")
+    parser.add_argument('--lang', type=str, default="", help="The language of the runfiles to compute hybrid on. Need to be set if alpha is not given.")
+    parser.add_argument('--alpha', type=float, default=0, help="The alpha weight on dense / sparse score. use the pre-defined (optimal) one if --lang is specified.")
     parser.add_argument('--normalization', action='store_true')
     parser.add_argument('--weight-on-dense', action='store_true')
 
@@ -35,12 +35,11 @@ if __name__ == '__main__':
     hybrid_result = {}
     output_f = open(args.output, 'w')
     alpha = args.alpha
-    if not alpha:
-        if not args.lang:
-            raise ValueError(f"Need to either set --alpha or --lang to compute hybrid.")
-        alpha = lang2alpha.get(args.lang, None)
-        if not args.lang:
+    lang = args.lang
+    if lang:
+        if lang not in lang2alpha:
             raise ValueError(f"Unrecognized lang, need to be one of {list(lang2alpha.keys())}.")
+        alpha = lang2alpha[lang]
 
     for key in tqdm(list(set(runs_1.keys()).union(set(runs_2.keys())))):
         dense_hits = {docid: runs_1[key][docid] for docid in runs_1[key]} if key in runs_1 else {}
@@ -68,7 +67,7 @@ if __name__ == '__main__':
                 dense_score = 0 if (max_sparse_score - min_sparse_score) == 0 else (
                     (dense_score - (min_dense_score + max_dense_score) / 2) / (max_dense_score - min_dense_score))
 
-            score = args.alpha * sparse_score + dense_score if not args.weight_on_dense else sparse_score + args.alpha * dense_score
+            score = alpha * sparse_score + dense_score if not args.weight_on_dense else sparse_score + alpha * dense_score
             hybrid_result.append((doc, score))
 
         hybrid_result = sorted(hybrid_result, key=lambda x: x[1], reverse=True)

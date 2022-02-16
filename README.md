@@ -33,13 +33,13 @@ The dataset (v1.1) is also available on HuggingFace Dataset:
 
 #### 2. Pre-build sparse index (for BM25)
 
-| Version | Dataset Link |
+| Version | Index Link |
 |------------|------------------------------------------------------------------------------------------|
 |**Version 1.1**| &nbsp;&nbsp;&nbsp;&nbsp; [Arabic](https://vault.cs.uwaterloo.ca/s/7oDFnq8FmTazf2a/download) \| [Bengali](https://vault.cs.uwaterloo.ca/s/HaPaz2wFbRMP2LK/download) \| [English](https://vault.cs.uwaterloo.ca/s/w4ccMwH5BLnXQ3j/download) \| [Finnish](https://vault.cs.uwaterloo.ca/s/Pgd3mqjy77a6FR8/download) \| [Indonesian](https://vault.cs.uwaterloo.ca/s/tF8NE7pWZ2xGix7/download) \| [Japanese](https://vault.cs.uwaterloo.ca/s/ema8i83zqJr7n48/download) \| [Korean](https://vault.cs.uwaterloo.ca/s/igmEHCTjTwNi3de/download) \| [Russian](https://vault.cs.uwaterloo.ca/s/Pbi9xrD7jSYaxnX/download) \| [Swahili](https://vault.cs.uwaterloo.ca/s/SWqajDQgq8wppf6/download) \| [Telugu](https://vault.cs.uwaterloo.ca/s/DAB6ba5ZF98awH6/download) \| [Thai](https://vault.cs.uwaterloo.ca/s/2Ady6AwBwNbYLpg/download)
 |**Version 1.0**| &nbsp;&nbsp;&nbsp;&nbsp;[Arabic](https://vault.cs.uwaterloo.ca/s/kKed9pzMGPdiHkm/download) \| [Bengali](https://vault.cs.uwaterloo.ca/s/QWsjtMgprLBx6gd/download) \| [English](https://vault.cs.uwaterloo.ca/s/RG3wTom3TBnYbyx/download) \| [Finnish](https://vault.cs.uwaterloo.ca/s/FwCbws5okxsjH5T/download) \| [Indonesian](https://vault.cs.uwaterloo.ca/s/FJLKPZwGKn2wCD5/download) \| [Japanese](https://vault.cs.uwaterloo.ca/s/mYj9g7pJZqGbZXM/download) \| [Korean](https://vault.cs.uwaterloo.ca/s/zKAFt5q8wLjokWq/download) \| [Russian](https://vault.cs.uwaterloo.ca/s/TBMEn2coT9Xoyk8/download) \| [Swahili](https://vault.cs.uwaterloo.ca/s/rpX6TbqrE73yoLp/download) \| [Telugu](https://vault.cs.uwaterloo.ca/s/eWN7ZYpfknRHZEM/download) \| [Thai](https://vault.cs.uwaterloo.ca/s/HnF36dN86SdZKx6/download)
 
 #### 3. Pre-build dense index (for mDPR)
-| Version | Dataset Link |
+| Version | Index Link |
 |------------|------------------------------------------------------------------------------------------|
 |**Version 1.1**| &nbsp;&nbsp;&nbsp;&nbsp; [Arabic](https://vault.cs.uwaterloo.ca/s/Jgj3rYjbyRrmJs8/download) \| [Bengali](https://vault.cs.uwaterloo.ca/s/4PpkzXAQtXFFJHR/download) \| [English](https://vault.cs.uwaterloo.ca/s/A7pjbwYeoT4Krnj/download) \| [Finnish](https://vault.cs.uwaterloo.ca/s/erNYkrYzRZxpecz/download) \| [Indonesian](https://vault.cs.uwaterloo.ca/s/BpR3MzT7KJ6edx7/download) \| [Japanese](https://vault.cs.uwaterloo.ca/s/k7bptHT8GwMJpnF/download) \| [Korean](https://vault.cs.uwaterloo.ca/s/TigfYMde94YWAoE/download) \| [Russian](https://vault.cs.uwaterloo.ca/s/eN7demnmnspqxjk/download) \| [Swahili](https://vault.cs.uwaterloo.ca/s/JgiX8PRftnqcPwy/download) \| [Telugu](https://vault.cs.uwaterloo.ca/s/dkm6RGdgRbnwiX2/download) \| [Thai](https://vault.cs.uwaterloo.ca/s/fFrRYefd3nWFR3J/download)
 |**Version 1.0**| &nbsp;&nbsp;&nbsp;&nbsp; [Arabic](https://vault.cs.uwaterloo.ca/s/JptH9xNcWsEJnto/download) \| [Bengali](https://vault.cs.uwaterloo.ca/s/Q2e8iRc6W2598RA/download) \| [English](https://vault.cs.uwaterloo.ca/s/YsJeS6EHA4XndHP/download) \| [Finnish](https://vault.cs.uwaterloo.ca/s/EkywkiRTkPHEcHF/download) \| [Indonesian](https://vault.cs.uwaterloo.ca/s/3RJBaDKjmFtEiXQ/download) \| [Japanese](https://vault.cs.uwaterloo.ca/s/iMdqFEatGGKWqJY/download) \| [Korean](https://vault.cs.uwaterloo.ca/s/DWjLygpryrrDmAg/download) \| [Russian](https://vault.cs.uwaterloo.ca/s/saJ9fwdE4Fxy6jD/download) \| [Swahili](https://vault.cs.uwaterloo.ca/s/P4zpSg3CHp4ckmZ/download) \| [Telugu](https://vault.cs.uwaterloo.ca/s/PrpzZTxgRwyP3EG/download) \| [Thai](https://vault.cs.uwaterloo.ca/s/wT8GSZqY6T8JRqC/download)
@@ -93,18 +93,24 @@ python -m pyserini.dsearch \
 ```
 
 #### 3. BM25+mDPR hybrid
-Define variables based on language
+use the pre-set best alpha for each language:
 ```bash
 lang=arabic     # one of {'arabic', 'bengali', 'english', 'finnish', 'indonesian', 'japanese', 'korean', 'russian', 'swahili', 'telugu', 'thai'}
-lang_abbr=ar    # one of {'ar', 'bn', 'en', 'fi', 'id', 'ja', 'ko', 'ru', 'sw', 'te', 'th'}
-alpha=None  # will use the pre-set best alpha, need to set --lang in this case
-            # or any float between (0, 1) 
 
 python scripts/hybrid.py    --lang ${lang} \
                             --sparse ${bm25_runfile} \
                             --dense ${dense_runfile} \
                             --output ${runfile} \
-                            --alpha ${alpha} \
+                            --weight-on-dense \
+                            --normalization
+```
+or to run hybrid with any `alpha`:
+```bash
+alpha=0.5
+python scripts/hybrid.py    --alpha ${alpha} \
+                            --sparse ${bm25_runfile} \
+                            --dense ${dense_runfile} \
+                            --output ${runfile} \
                             --weight-on-dense \
                             --normalization
 ```
