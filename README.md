@@ -40,8 +40,11 @@ Mr. TyDi is licensed under the Apache License 2.0.
 - [castorini/mdpr-question-nq](https://huggingface.co/castorini/mdpr-question-nq)
 - [castorini/mdpr-passage-nq](https://huggingface.co/castorini/mdpr-passage-nq)
 
+
 <details>
-  <summary style="font-size: 1.2em;"> Version 1.0 </summary>
+    <summary> <b> Previous Versions </b></summary>
+
+### Version 1.0
 
 #### 1. Dataset
 &nbsp;&nbsp;&nbsp;&nbsp;  [Ar](https://git.uwaterloo.ca/jimmylin/mr.tydi/-/raw/master/data/mrtydi-v1.0-arabic.tar.gz) \| [Bn](https://git.uwaterloo.ca/jimmylin/mr.tydi/-/raw/master/data/mrtydi-v1.0-bengali.tar.gz) \| [En](https://git.uwaterloo.ca/jimmylin/mr.tydi/-/raw/master/data/mrtydi-v1.0-english.tar.gz) \| [Fi](https://git.uwaterloo.ca/jimmylin/mr.tydi/-/raw/master/data/mrtydi-v1.0-finnish.tar.gz) \| [Id](https://git.uwaterloo.ca/jimmylin/mr.tydi/-/raw/master/data/mrtydi-v1.0-indonesian.tar.gz) \| [Ja](https://git.uwaterloo.ca/jimmylin/mr.tydi/-/raw/master/data/mrtydi-v1.0-japanese.tar.gz) \| [Ko](https://git.uwaterloo.ca/jimmylin/mr.tydi/-/raw/master/data/mrtydi-v1.0-korean.tar.gz) \| [Ru](https://git.uwaterloo.ca/jimmylin/mr.tydi/-/raw/master/data/mrtydi-v1.0-russian.tar.gz) \| [Sw](https://git.uwaterloo.ca/jimmylin/mr.tydi/-/raw/master/data/mrtydi-v1.0-swahili.tar.gz) \| [Te](https://git.uwaterloo.ca/jimmylin/mr.tydi/-/raw/master/data/mrtydi-v1.0-telugu.tar.gz) \| [Th](https://git.uwaterloo.ca/jimmylin/mr.tydi/-/raw/master/data/mrtydi-v1.0-thai.tar.gz)
@@ -51,6 +54,7 @@ Mr. TyDi is licensed under the Apache License 2.0.
 
 #### 3. Pre-build dense index (for mDPR)
 &nbsp;&nbsp;&nbsp;&nbsp; [Ar](https://vault.cs.uwaterloo.ca/s/JptH9xNcWsEJnto/download) \| [Bn](https://vault.cs.uwaterloo.ca/s/Q2e8iRc6W2598RA/download) \| [En](https://vault.cs.uwaterloo.ca/s/YsJeS6EHA4XndHP/download) \| [Fi](https://vault.cs.uwaterloo.ca/s/EkywkiRTkPHEcHF/download) \| [Id](https://vault.cs.uwaterloo.ca/s/3RJBaDKjmFtEiXQ/download) \| [Ja](https://vault.cs.uwaterloo.ca/s/iMdqFEatGGKWqJY/download) \| [Ko](https://vault.cs.uwaterloo.ca/s/DWjLygpryrrDmAg/download) \| [Ru](https://vault.cs.uwaterloo.ca/s/saJ9fwdE4Fxy6jD/download) \| [Sw](https://vault.cs.uwaterloo.ca/s/P4zpSg3CHp4ckmZ/download) \| [Te](https://vault.cs.uwaterloo.ca/s/PrpzZTxgRwyP3EG/download) \| [Th](https://vault.cs.uwaterloo.ca/s/wT8GSZqY6T8JRqC/download)
+
 </details>
 
 ## Baselines and Evaluation
