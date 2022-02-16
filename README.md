@@ -31,7 +31,7 @@ The dataset (v1.1) is also available on HuggingFace Dataset:
 - [castorini/mr-tydi](https://huggingface.co/datasets/castorini/mr-tydi)
 - [castorini/mrtydi-corpus](https://huggingface.co/datasets/castorini/mr-tydi-corpus)
 
-#### 2. Pre-build sparse index (for BM25)
+#### 2. Pre-built sparse index (for BM25)
 
 &nbsp;&nbsp;&nbsp;&nbsp;[Arabic](https://vault.cs.uwaterloo.ca/s/kKed9pzMGPdiHkm/download)
 | [Bengali](https://vault.cs.uwaterloo.ca/s/QWsjtMgprLBx6gd/download)
@@ -45,7 +45,7 @@ The dataset (v1.1) is also available on HuggingFace Dataset:
 | [Telugu](https://vault.cs.uwaterloo.ca/s/eWN7ZYpfknRHZEM/download)
 | [Thai](https://vault.cs.uwaterloo.ca/s/HnF36dN86SdZKx6/download)
 
-#### 3. Pre-build dense index (for mDPR)
+#### 3. Pre-built dense index (for mDPR)
 
 &nbsp;&nbsp;&nbsp;&nbsp; [Arabic](https://vault.cs.uwaterloo.ca/s/JptH9xNcWsEJnto/download)
 | [Bengali](https://vault.cs.uwaterloo.ca/s/Q2e8iRc6W2598RA/download) 
