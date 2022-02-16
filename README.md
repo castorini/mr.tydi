@@ -8,6 +8,7 @@
     <p>
         <a href="#download">Download</a> |
         <a href="#baselines-and-evaluation">Baselines and Evaluation</a> |
+        <a href="#results">Results</a> |
         <a href="https://arxiv.org/abs/2108.08787">Paper</a>
     <p>
 </h4>
@@ -54,13 +55,16 @@ The dataset (v1.1) is also available on HuggingFace Dataset:
 The one-command index and reproduce would require the recent dev version of Pyserini.
 Please follow this [guidance](https://github.com/castorini/pyserini/#development-installation) to setup a dev installation for Pyserini.
 
-This page only covers the scripts to reproduce searching.
+This page only covers the scripts to reproduce *searching*.
 The indexes are all handled within Pyserini. 
-That is, you won't need to manually download the above indexes or model to run the following scripts.
+That is, you won't need to manually download the above indexes or models to run the following scripts.
 For the scripts to reproduce the sparse and dense indexes,
 please refer to the Pyserini documentations:
 
-
+| Version | Model | Documentation Link |
+|------------|-------|------------------------------------------------------------------------------------------|
+|**Version 1.1**| Sparse Index | &nbsp;&nbsp;&nbsp;&nbsp; [Arabic](https://github.com/castorini/pyserini/blob/master/pyserini/resources/index-metadata/lucene-index.mrtydi-v1.1-Arabic.20220108.6fcb89.README.md) \\| [Bengali](https://github.com/castorini/pyserini/blob/master/pyserini/resources/index-metadata/lucene-index.mrtydi-v1.1-Bengali.20220108.6fcb89.README.md) \\| [English](https://github.com/castorini/pyserini/blob/master/pyserini/resources/index-metadata/lucene-index.mrtydi-v1.1-English.20220108.6fcb89.README.md) \\| [Finnish](https://github.com/castorini/pyserini/blob/master/pyserini/resources/index-metadata/lucene-index.mrtydi-v1.1-Finnish.20220108.6fcb89.README.md) \\| [Indonesian](https://github.com/castorini/pyserini/blob/master/pyserini/resources/index-metadata/lucene-index.mrtydi-v1.1-Indonesian.20220108.6fcb89.README.md) \\| [Japanese](https://github.com/castorini/pyserini/blob/master/pyserini/resources/index-metadata/lucene-index.mrtydi-v1.1-Japanese.20220108.6fcb89.README.md) \\| [Korean](https://github.com/castorini/pyserini/blob/master/pyserini/resources/index-metadata/lucene-index.mrtydi-v1.1-Korean.20220108.6fcb89.README.md) \\| [Russian](https://github.com/castorini/pyserini/blob/master/pyserini/resources/index-metadata/lucene-index.mrtydi-v1.1-Russian.20220108.6fcb89.README.md) \\| [Swahili](https://github.com/castorini/pyserini/blob/master/pyserini/resources/index-metadata/lucene-index.mrtydi-v1.1-Swahili.20220108.6fcb89.README.md) \\| [Telugu](https://github.com/castorini/pyserini/blob/master/pyserini/resources/index-metadata/lucene-index.mrtydi-v1.1-Telugu.20220108.6fcb89.README.md) \\| [Thai](https://github.com/castorini/pyserini/blob/master/pyserini/resources/index-metadata/lucene-index.mrtydi-v1.1-Thai.20220108.6fcb89.README.md)
+|**Version 1.1**| Dense Index | &nbsp;&nbsp;&nbsp;&nbsp; [Arabic]('https://github.com/castorini/pyserini/blob/master/pyserini/resources/index-metadata/faiss.mrtydi-v1.1-Arabic.20220207.5df364.README.md') \\| [Bengali]('https://github.com/castorini/pyserini/blob/master/pyserini/resources/index-metadata/faiss.mrtydi-v1.1-Bengali.20220207.5df364.README.md') \\| [English]('https://github.com/castorini/pyserini/blob/master/pyserini/resources/index-metadata/faiss.mrtydi-v1.1-English.20220207.5df364.README.md') \\| [Finnish]('https://github.com/castorini/pyserini/blob/master/pyserini/resources/index-metadata/faiss.mrtydi-v1.1-Finnish.20220207.5df364.README.md') \\| [Indonesian]('https://github.com/castorini/pyserini/blob/master/pyserini/resources/index-metadata/faiss.mrtydi-v1.1-Indonesian.20220207.5df364.README.md') \\| [Japanese]('https://github.com/castorini/pyserini/blob/master/pyserini/resources/index-metadata/faiss.mrtydi-v1.1-Japanese.20220207.5df364.README.md') \\| [Korean]('https://github.com/castorini/pyserini/blob/master/pyserini/resources/index-metadata/faiss.mrtydi-v1.1-Korean.20220207.5df364.README.md') \\| [Russian]('https://github.com/castorini/pyserini/blob/master/pyserini/resources/index-metadata/faiss.mrtydi-v1.1-Russian.20220207.5df364.README.md') \\| [Swahili]('https://github.com/castorini/pyserini/blob/master/pyserini/resources/index-metadata/faiss.mrtydi-v1.1-Swahili.20220207.5df364.README.md') \\| [Telugu]('https://github.com/castorini/pyserini/blob/master/pyserini/resources/index-metadata/faiss.mrtydi-v1.1-Telugu.20220207.5df364.README.md') \\| [Thai]('https://github.com/castorini/pyserini/blob/master/pyserini/resources/index-metadata/faiss.mrtydi-v1.1-Thai.20220207.5df364.README.md')
 #### 1. BM25
 Define variables based on language
 ```bash
@@ -120,6 +124,26 @@ where the `bm25_runfile` and `dense_runfile` are prepared from the previous two 
 ```bash
 python -m pyserini.eval.trec_eval -c -mrecip_rank -mrecall.100 ${qrels} ${runfile} 
 ```
+
+
+## Results
+Here we present the MRR@100 and Recall@100 scores after fixing a bug relavant to using multi-lingual models in Pyserini 0.13.0. The sparse scores are unaffected, whereas the mDPR and Hybrid scores are higher than the original reported ones to various degree.
+We also put the updated figures under the [figures/](./figures) directory.
+### MRR@100
+|                |   Ar  |   Bn  |   En  |   Fi  |   In  |   Ja  |   Ko  |   Ru  |   Sw  |   Te  |   Th  |  avg  |
+|----------------|:-----:|:-----:|:-----:|:-----:|:-----:|:-----:|:-----:|:-----:|:-----:|:-----:|:-----:|:-----:|
+| BM25 (default) | 0.368 | 0.418 | 0.140 | 0.284 | 0.376 | 0.211 | 0.285 | 0.313 | 0.389 | 0.343 | 0.401 | 0.321 |
+|   BM25 (tuned) | 0.366 | 0.413 | 0.150 | 0.287 | 0.382 | 0.217 | 0.280 | 0.329 | 0.396 | 0.424 | 0.416 | 0.333 |
+|      mDPR (NQ) | 0.291 | 0.291 | 0.291 | 0.206 | 0.271 | 0.213 | 0.235 | 0.283 | 0.189 | 0.111 | 0.172 | 0.226 |
+|         Hybrid | 0.500 | 0.555 | 0.328 | 0.377 | 0.481 | 0.360 | 0.361 | 0.455 | 0.415 | 0.418 | 0.507 | 0.426 |
+
+### Recall@100
+|                |   Ar  |   Bn  |   En  |   Fi  |   In  |   Ja  |   Ko  |   Ru  |   Sw  |   Te  |   Th  |  avg  |
+|----------------|:-----:|:-----:|:-----:|:-----:|:-----:|:-----:|:-----:|:-----:|:-----:|:-----:|:-----:|:-----:|
+| BM25 (default) | 0.793 | 0.869 | 0.537 | 0.719 | 0.843 | 0.645 | 0.619 | 0.648 | 0.764 | 0.758 | 0.853 | 0.732 |
+|   BM25 (tuned) | 0.800 | 0.874 | 0.551 | 0.725 | 0.846 | 0.656 | 0.797 | 0.660 | 0.764 | 0.813 | 0.853 | 0.758 |
+|      mDPR (NQ) | 0.650 | 0.779 | 0.678 | 0.568 | 0.685 | 0.584 | 0.533 | 0.647 | 0.528 | 0.366 | 0.515 | 0.594 |
+|         Hybrid | 0.871 | 0.946 | 0.793 | 0.827 | 0.900 | 0.794 | 0.718 | 0.815 | 0.808 | 0.823 | 0.883 | 0.834 |
 
 ## Citation
 If you find our paper useful or use the dataset in your work, please cite our paper and the TyDi paper:
